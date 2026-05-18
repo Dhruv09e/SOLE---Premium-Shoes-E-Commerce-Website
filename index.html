@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SOLE — Premium Footwear</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#F5F0E8;--black:#0D0D0D;--accent:#C8502A;--muted:#8A8478;--card:#EDEAE2}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--black);overflow-x:hidden}
+a{text-decoration:none}
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:7rem 3.5rem 4rem;gap:2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;right:-5%;top:10%;width:55vw;height:80vh;background:var(--card);border-radius:40% 60% 60% 40%/60% 30% 70% 40%;z-index:0;animation:morphBlob 8s ease-in-out infinite}
+@keyframes morphBlob{0%,100%{border-radius:40% 60% 60% 40%/60% 30% 70% 40%}50%{border-radius:60% 40% 30% 70%/40% 60% 70% 30%}}
+.hero-text{position:relative;z-index:1}
+.eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.eyebrow::before{content:'';display:inline-block;width:30px;height:1px;background:var(--accent)}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,9vw,10rem);line-height:.9;letter-spacing:.03em;margin-bottom:1.5rem}
+.hero-title span{color:var(--accent)}
+.hero-desc{font-size:1rem;font-weight:300;line-height:1.7;color:var(--muted);max-width:380px;margin-bottom:2.5rem}
+.hero-cta{display:flex;gap:1rem;align-items:center}
+.btn-primary{background:var(--black);color:var(--cream);padding:1rem 2.5rem;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-block;transition:background .25s,transform .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+.btn-ghost{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:.5rem;transition:color .25s}
+.btn-ghost:hover{color:var(--black)}
+.btn-ghost::after{content:'→';font-size:1rem}
+.hero-img{position:relative;z-index:1;display:flex;align-items:center;justify-content:center}
+.hero-img svg{width:100%;max-width:560px;filter:drop-shadow(0 40px 60px rgba(0,0,0,.2));animation:floatShoe 4s ease-in-out infinite}
+@keyframes floatShoe{0%,100%{transform:rotate(-8deg) translateY(0)}50%{transform:rotate(-8deg) translateY(-20px)}}
+.hero-stats{position:absolute;bottom:3rem;left:3.5rem;display:flex;gap:4rem;z-index:1}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--black);line-height:1}
+.stat-lbl{font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+/* MARQUEE */
+.marquee-wrap{overflow:hidden;background:var(--black);padding:1rem 0}
+.marquee-track{display:flex;animation:marquee 18s linear infinite;white-space:nowrap}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.marquee-item{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.2em;color:var(--cream);padding:0 2.5rem;display:inline-flex;align-items:center;gap:2.5rem}
+.mdot{width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block}
+/* COLLECTION */
+.section{padding:7rem 3.5rem}
+.sec-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3.5rem}
+.sec-eyebrow{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,5vw,5rem);line-height:.95;letter-spacing:.03em}
+.view-all{font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--black);border-bottom:1px solid var(--black);padding-bottom:2px;transition:color .2s,border-color .2s}
+.view-all:hover{color:var(--accent);border-color:var(--accent)}
+/* FILTERS */
+.filters{display:flex;gap:.75rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.filter-btn{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1.25rem;border:1px solid rgba(13,13,13,.25);background:transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s;font-family:'DM Sans',sans-serif}
+.filter-btn.active,.filter-btn:hover{background:var(--black);color:var(--cream);border-color:var(--black)}
+/* GRID */
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.product-card{position:relative;overflow:hidden;transition:transform .4s ease;cursor:pointer}
+.product-card:hover{transform:translateY(-8px)}
+.card-image{background:var(--card);aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.card-tag{position:absolute;top:1rem;left:1rem;background:var(--accent);color:white;font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .7rem}
+.card-img-inner svg{transform:rotate(-15deg);transition:transform .5s ease}
+.product-card:hover .card-img-inner svg{transform:rotate(-5deg) scale(1.08)}
+.card-body{padding:1.1rem 0}
+.card-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;margin-bottom:.3rem}
+.card-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.card-cat{font-size:.72rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.card-price{font-size:1rem;font-weight:600}
+.size-row{display:flex;gap:.4rem;margin-bottom:.9rem;flex-wrap:wrap}
+.size-btn{font-size:.65rem;font-weight:600;padding:.3rem .6rem;border:1px solid rgba(13,13,13,.2);background:transparent;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.size-btn.sel,.size-btn:hover{background:var(--black);color:var(--cream);border-color:var(--black)}
+.add-btn{width:100%;padding:.7rem;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;background:var(--black);color:var(--cream);border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s}
+.add-btn:hover{background:var(--accent)}
+/* FEATURE */
+.feature-strip{background:var(--black);padding:6rem 3.5rem;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.feat-img{position:relative}
+.feat-img svg{width:100%;aspect-ratio:4/5}
+.feat-badge{position:absolute;bottom:2rem;right:-1.5rem;background:var(--accent);width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.feat-badge .num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:white;line-height:1}
+.feat-badge .lbl{font-size:.52rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.feat-text{color:var(--cream)}
+.feat-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,4.5vw,5rem);line-height:.95;letter-spacing:.03em;margin-bottom:1.5rem;color:var(--cream)}
+.feat-desc{font-size:.92rem;font-weight:300;line-height:1.8;color:rgba(245,240,232,.6);margin-bottom:2rem;max-width:420px}
+.feat-list{list-style:none;margin-bottom:2.5rem}
+.feat-list li{font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.7);padding:.7rem 0;border-bottom:1px solid rgba(245,240,232,.1);display:flex;align-items:center;gap:1rem}
+.feat-list li::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+.btn-outline{border:1px solid rgba(245,240,232,.4);color:var(--cream);padding:1rem 2.5rem;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-block;transition:background .25s,border-color .25s,transform .2s;font-family:'DM Sans',sans-serif;cursor:pointer;background:transparent}
+.btn-outline:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+/* FOOTER */
+footer{padding:4rem 3.5rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;border-top:1px solid rgba(13,13,13,.1)}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.15em;color:var(--black);display:block;margin-bottom:1rem}
+.foot-tag{font-size:.82rem;font-weight:300;color:var(--muted);line-height:1.7;max-width:250px}
+.foot-col h4{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;color:var(--black)}
+.foot-col ul{list-style:none}
+.foot-col ul li{margin-bottom:.8rem}
+.foot-col ul li a{font-size:.82rem;font-weight:300;color:var(--muted);transition:color .2s}
+.foot-col ul li a:hover{color:var(--accent)}
+.foot-bottom{padding:1.4rem 3.5rem;display:flex;justify-content:space-between;border-top:1px solid rgba(13,13,13,.08);font-size:.72rem;color:var(--muted)}
+/* reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">New Season 2025</p>
+    <h1 class="hero-title">Move<br>With<br><span>Purpose.</span></h1>
+    <p class="hero-desc">Handcrafted for the relentless. Each pair engineered where precision meets raw ambition — designed to outlast every mile.</p>
+    <div class="hero-cta">
+      <a href="#collection" class="btn-primary">Shop Collection</a>
+      <a href="#about" class="btn-ghost">Our Story</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="280" cy="285" rx="210" ry="22" fill="#1a1a1a"/>
+      <path d="M70 270 Q150 300 350 295 Q450 290 490 265 Q510 255 490 245 Q450 250 350 260 Q150 265 70 255Z" fill="#2d2d2d"/>
+      <path d="M75 250 Q155 260 350 258 Q448 255 488 242 Q480 235 460 232 Q380 245 260 248 Q130 252 80 240Z" fill="#C8502A"/>
+      <path d="M90 240 Q120 220 180 215 Q260 208 340 210 Q400 212 440 225 Q460 232 450 240 L350 258 Q200 265 90 250Z" fill="#F5F0E8"/>
+      <path d="M90 240 Q70 235 65 220 Q62 205 80 198 Q110 190 150 192 Q180 193 200 198 Q210 202 210 210 Q200 218 180 215 Q120 220 90 240Z" fill="#EDEAE2"/>
+      <path d="M430 228 Q460 220 470 210 Q475 200 465 192 Q450 185 430 188 Q410 192 400 200 Q395 208 400 218 Q415 224 430 228Z" fill="#EDEAE2"/>
+      <path d="M200 200 Q270 195 350 197 Q390 198 405 205 Q400 215 390 218 Q360 212 290 210 Q220 208 205 212Z" fill="#DEDAD2"/>
+      <line x1="220" y1="205" x2="220" y2="215" stroke="#C8502A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="245" y1="203" x2="245" y2="213" stroke="#C8502A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="270" y1="202" x2="270" y2="212" stroke="#C8502A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="295" y1="201" x2="295" y2="211" stroke="#C8502A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="320" y1="201" x2="320" y2="211" stroke="#C8502A" stroke-width="2" stroke-linecap="round"/>
+      <line x1="345" y1="202" x2="345" y2="212" stroke="#C8502A" stroke-width="2" stroke-linecap="round"/>
+      <path d="M220 210 Q245 207 270 207 Q295 207 320 208 Q333 208 345 209" stroke="#C8502A" stroke-width="1.5" fill="none"/>
+      <path d="M400 200 Q420 185 415 170 Q410 158 395 155 Q380 153 370 160 Q365 168 368 178 Q372 192 395 200Z" fill="#EDEAE2"/>
+      <text x="300" y="232" font-family="'Bebas Neue',sans-serif" font-size="22" fill="#C8502A" opacity=".7" letter-spacing="3">SOLE</text>
+    </svg>
+  </div>
+  <div class="hero-stats">
+    <div><div class="stat-num">12K+</div><div class="stat-lbl">Happy Soles</div></div>
+    <div><div class="stat-num">48</div><div class="stat-lbl">Styles</div></div>
+    <div><div class="stat-num">100%</div><div class="stat-lbl">Handcrafted</div></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="mtrack"></div>
+</div>
+
+<!-- COLLECTION -->
+<section class="section" id="collection">
+  <div class="sec-header reveal">
+    <div><p class="sec-eyebrow">Featured</p><h2 class="sec-title">The Drop.</h2></div>
+    <a href="#" class="view-all">View All →</a>
+  </div>
+  <div class="filters reveal" id="filters"></div>
+  <div class="products-grid" id="products-grid"></div>
+</section>
+
+<!-- FEATURE -->
+<section class="feature-strip" id="about">
+  <div class="feat-img reveal">
+    <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="500" fill="#1a1a1a"/>
+      <line x1="0" y1="100" x2="400" y2="80" stroke="#2a2a2a" stroke-width="1"/>
+      <line x1="0" y1="200" x2="400" y2="180" stroke="#2a2a2a" stroke-width="1"/>
+      <line x1="0" y1="300" x2="400" y2="280" stroke="#2a2a2a" stroke-width="1"/>
+      <line x1="0" y1="400" x2="400" y2="380" stroke="#2a2a2a" stroke-width="1"/>
+      <text x="200" y="260" font-family="'Bebas Neue',sans-serif" font-size="120" fill="#262626" text-anchor="middle" letter-spacing="8">SOLE</text>
+      <text x="200" y="340" font-family="'Bebas Neue',sans-serif" font-size="38" fill="#C8502A" text-anchor="middle" letter-spacing="12" opacity=".6">EST. 2018</text>
+      <ellipse cx="200" cy="460" rx="160" ry="18" fill="#111"/>
+      <path d="M40 445 Q100 455 230 452 Q310 450 340 437 L334 428 Q304 436 228 440 Q98 444 38 432Z" fill="#222"/>
+      <path d="M43 434 Q85 417 128 412 Q185 405 248 408 Q288 411 314 425 Q320 433 310 440 L245 447 Q152 452 43 437Z" fill="#F5F0E8"/>
+      <path d="M307 422 Q322 410 318 396 Q311 384 298 382 Q284 380 278 391 Q274 404 288 418Z" fill="#EDEAE2"/>
+      <line x1="155" y1="415" x2="155" y2="424" stroke="#C8502A" stroke-width="3" stroke-linecap="round"/>
+      <line x1="175" y1="413" x2="175" y2="422" stroke="#C8502A" stroke-width="3" stroke-linecap="round"/>
+      <line x1="195" y1="412" x2="195" y2="421" stroke="#C8502A" stroke-width="3" stroke-linecap="round"/>
+      <line x1="215" y1="412" x2="215" y2="421" stroke="#C8502A" stroke-width="3" stroke-linecap="round"/>
+      <line x1="235" y1="413" x2="235" y2="422" stroke="#C8502A" stroke-width="3" stroke-linecap="round"/>
+    </svg>
+    <div class="feat-badge"><div class="num">48</div><div class="lbl">Unique<br>Designs</div></div>
+  </div>
+  <div class="feat-text reveal">
+    <p class="sec-eyebrow">Craftsmanship</p>
+    <h2 class="feat-title">Built For<br>Every<br>Road.</h2>
+    <p class="feat-desc">We believe footwear should be a second skin. Each pair is shaped by hand, refined through testing on real terrain — no shortcuts, no compromises.</p>
+    <ul class="feat-list">
+      <li>Full-grain leather uppers</li>
+      <li>Recycled foam midsoles</li>
+      <li>Vibram® outsole grip</li>
+      <li>80-point quality check</li>
+    </ul>
+    <a href="#collection" class="btn-outline">Explore Range</a>
+  </div>
+</section>
+
+<footer>
+  <div><a href="index.html" class="foot-logo">SOLE</a><p class="foot-tag">Premium footwear for those who move with purpose. Handcrafted in India, worn worldwide.</p></div>
+  <div class="foot-col"><h4>Shop</h4><ul><li><a href="#">Men's</a></li><li><a href="#">Women's</a></li><li><a href="#">Running</a></li><li><a href="#">Lifestyle</a></li></ul></div>
+  <div class="foot-col"><h4>Company</h4><ul><li><a href="#">Our Story</a></li><li><a href="#">Sustainability</a></li><li><a href="#">Careers</a></li></ul></div>
+  <div class="foot-col"><h4>Help</h4><ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="cart.html">Cart</a></li><li><a href="login.html">Account</a></li></ul></div>
+</footer>
+<div class="foot-bottom"><span>© 2025 SOLE Footwear. All rights reserved.</span><span>Made with craft in Mumbai 🇮🇳</span></div>
+
+<script src="app.js"></script>
+<script>
+document.getElementById('nav-mount').innerHTML = renderNav('home');
+
+// Marquee
+const items = ['New Arrivals','Free Shipping Over ₹5000','Handcrafted Since 2018','Sustainable Materials','30-Day Returns'];
+const track = document.getElementById('mtrack');
+[...items,...items].forEach(t => {
+  track.innerHTML += `<span class="marquee-item">${t}<span class="mdot"></span></span>`;
+});
+
+// Filters
+const cats = ['All','Running','Lifestyle','Urban','Trail'];
+let activeCat = 'All';
+const filtersEl = document.getElementById('filters');
+function renderFilters() {
+  filtersEl.innerHTML = cats.map(c =>
+    `<button class="filter-btn${activeCat===c?' active':''}" onclick="setFilter('${c}')">${c}</button>`
+  ).join('');
+}
+function setFilter(c) { activeCat = c; renderFilters(); renderProducts(); }
+
+// Products
+const selectedSizes = {};
+function renderProducts() {
+  const grid = document.getElementById('products-grid');
+  const filtered = activeCat === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeCat);
+  grid.innerHTML = filtered.map(p => {
+    const sel = selectedSizes[p.id] || '8';
+    const sizes = ['6','7','8','9','10','11'];
+    return `<div class="product-card reveal">
+      <div class="card-image" style="background:${p.bg}">
+        ${p.tag ? `<span class="card-tag">${p.tag}</span>` : ''}
+        <div class="card-img-inner">${shoeSVG(p.id)}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-meta">
+          <span class="card-cat">${p.category}</span>
+          <span class="card-price">₹${p.price.toLocaleString('en-IN')}</span>
+        </div>
+        <div class="size-row">
+          ${sizes.map(s => `<button class="size-btn${sel===s?' sel':''}" onclick="pickSize(${p.id},'${s}',this)">${s}</button>`).join('')}
+        </div>
+        <button class="add-btn" onclick="addToCart(${p.id},'${sel}')">Add to Cart</button>
+      </div>
+    </div>`;
+  }).join('');
+  observeReveal();
+}
+function pickSize(id, size, btn) {
+  selectedSizes[id] = size;
+  btn.closest('.size-row').querySelectorAll('.size-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+// Scroll reveal
+function observeReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+renderFilters();
+renderProducts();
+observeReveal();
+</script>
+</body>
+</html>
