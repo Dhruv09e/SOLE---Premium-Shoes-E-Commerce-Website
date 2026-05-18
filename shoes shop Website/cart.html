@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SOLE — Cart</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--cream:#F5F0E8;--black:#0D0D0D;--accent:#C8502A;--muted:#8A8478;--card:#EDEAE2}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--black);min-height:100vh}
+a{text-decoration:none}
+.page{padding:8rem 3.5rem 5rem;max-width:1200px;margin:0 auto}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:4rem;letter-spacing:.05em;margin-bottom:.5rem}
+.page-sub{font-size:.85rem;color:var(--muted);font-weight:300;margin-bottom:3rem}
+.cart-layout{display:grid;grid-template-columns:1fr 380px;gap:4rem;align-items:start}
+/* ITEMS */
+.cart-items{}
+.cart-header{display:grid;grid-template-columns:3fr 1fr 1.2fr 1fr;gap:1rem;padding:0 0 1rem;border-bottom:1px solid rgba(13,13,13,.15);margin-bottom:1.5rem}
+.cart-header span{font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.cart-item{display:grid;grid-template-columns:3fr 1fr 1.2fr 1fr;gap:1rem;align-items:center;padding:1.5rem 0;border-bottom:1px solid rgba(13,13,13,.08);animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:none}}
+.item-info{display:flex;align-items:center;gap:1.25rem}
+.item-thumb{width:80px;height:80px;background:var(--card);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.item-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.05em;margin-bottom:.2rem}
+.item-meta{font-size:.72rem;color:var(--muted);font-weight:400;letter-spacing:.08em;text-transform:uppercase}
+.item-price{font-size:.95rem;font-weight:600}
+.qty-ctrl{display:flex;align-items:center;gap:.5rem}
+.qty-btn{width:28px;height:28px;border:1px solid rgba(13,13,13,.2);background:transparent;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:'DM Sans',sans-serif}
+.qty-btn:hover{background:var(--black);color:var(--cream);border-color:var(--black)}
+.qty-num{font-size:.9rem;font-weight:600;min-width:22px;text-align:center}
+.remove-btn{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:none;background:transparent;cursor:pointer;font-family:'DM Sans',sans-serif;transition:color .2s}
+.remove-btn:hover{color:var(--accent)}
+/* EMPTY */
+.empty-cart{text-align:center;padding:5rem 2rem}
+.empty-cart h2{font-family:'Bebas Neue',sans-serif;font-size:3rem;margin-bottom:1rem;color:var(--muted)}
+.empty-cart p{font-size:.9rem;color:var(--muted);font-weight:300;margin-bottom:2rem}
+.btn-primary{background:var(--black);color:var(--cream);padding:1rem 2.5rem;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;display:inline-block;transition:background .25s,transform .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px)}
+/* SUMMARY */
+.cart-summary{background:var(--card);padding:2.5rem;position:sticky;top:8rem}
+.summary-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.05em;margin-bottom:2rem}
+.summary-row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;font-size:.88rem}
+.summary-row.muted{color:var(--muted);font-weight:300}
+.summary-row.total{font-weight:600;font-size:1rem;border-top:1px solid rgba(13,13,13,.15);margin-top:.75rem;padding-top:1rem}
+.summary-row.total .val{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.03em}
+.promo-row{display:flex;gap:.5rem;margin:1.5rem 0}
+.promo-input{flex:1;padding:.7rem 1rem;border:1px solid rgba(13,13,13,.2);background:transparent;font-size:.85rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.promo-input:focus{border-color:var(--black)}
+.promo-btn{padding:.7rem 1.25rem;background:var(--black);color:var(--cream);border:none;cursor:pointer;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'DM Sans',sans-serif;transition:background .2s}
+.promo-btn:hover{background:var(--accent)}
+.checkout-btn{width:100%;padding:1.1rem;background:var(--accent);color:white;font-size:.82rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s,transform .2s;margin-top:.5rem}
+.checkout-btn:hover{background:#a83d20;transform:translateY(-2px)}
+.checkout-btn:active{transform:translateY(0)}
+.secure-note{display:flex;align-items:center;gap:.5rem;font-size:.7rem;color:var(--muted);justify-content:center;margin-top:1rem}
+.secure-note::before{content:'🔒';font-size:.8rem}
+.discount-tag{background:#C8502A;color:white;font-size:.65rem;font-weight:600;letter-spacing:.08em;padding:.2rem .5rem;text-transform:uppercase}
+</style>
+</head>
+<body>
+<div id="nav-mount"></div>
+
+<div class="page">
+  <h1 class="page-title">Your Cart.</h1>
+  <p class="page-sub" id="cart-count-label"></p>
+  <div id="cart-root"></div>
+</div>
+
+<script src="app.js"></script>
+<script>
+document.getElementById('nav-mount').innerHTML = renderNav('cart');
+
+function render() {
+  const cart = getCart();
+  const root = document.getElementById('cart-root');
+  const label = document.getElementById('cart-count-label');
+
+  if (cart.length === 0) {
+    label.textContent = '';
+    root.innerHTML = `<div class="empty-cart">
+      <h2>It's Empty In Here.</h2>
+      <p>You haven't added any shoes yet.</p>
+      <a href="index.html" class="btn-primary">Continue Shopping</a>
+    </div>`;
+    return;
+  }
+
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  label.textContent = count + ' item' + (count!==1?'s':'') + ' in your bag';
+
+  const subtotal = getCartTotal();
+  const shipping = subtotal >= 5000 ? 0 : 199;
+  const discount = appliedPromo ? Math.round(subtotal * 0.1) : 0;
+  const total = subtotal - discount + shipping;
+
+  root.innerHTML = `<div class="cart-layout">
+    <div class="cart-items">
+      <div class="cart-header">
+        <span>Product</span><span>Price</span><span>Quantity</span><span>Remove</span>
+      </div>
+      ${cart.map(item => {
+        const p = PRODUCTS.find(p=>p.id===item.id);
+        if (!p) return '';
+        return `<div class="cart-item">
+          <div class="item-info">
+            <div class="item-thumb">${shoeSVG(p.id,true)}</div>
+            <div>
+              <div class="item-name">${p.name}</div>
+              <div class="item-meta">${p.category} &nbsp;·&nbsp; Size ${item.size}</div>
+            </div>
+          </div>
+          <div class="item-price">₹${p.price.toLocaleString('en-IN')}</div>
+          <div class="qty-ctrl">
+            <button class="qty-btn" onclick="changeQty(${p.id},'${item.size}',${item.qty-1})">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${p.id},'${item.size}',${item.qty+1})">+</button>
+          </div>
+          <button class="remove-btn" onclick="doRemove(${p.id},'${item.size}')">Remove</button>
+        </div>`;
+      }).join('')}
+    </div>
+    <div class="cart-summary">
+      <div class="summary-title">Order Summary</div>
+      <div class="summary-row muted"><span>Subtotal</span><span>₹${subtotal.toLocaleString('en-IN')}</span></div>
+      <div class="summary-row muted"><span>Shipping</span><span>${shipping===0?'<span style="color:#3B6D11;font-weight:600">Free ✓</span>':'₹'+shipping}</span></div>
+      ${appliedPromo ? `<div class="summary-row muted"><span>Promo (SOLE10) <span class="discount-tag">-10%</span></span><span style="color:#3B6D11">−₹${discount.toLocaleString('en-IN')}</span></div>` : ''}
+      <div class="summary-row total"><span>Total</span><span class="val">₹${total.toLocaleString('en-IN')}</span></div>
+      <div class="promo-row">
+        <input class="promo-input" id="promo-input" placeholder="Promo code (try SOLE10)" value="${appliedPromo||''}"/>
+        <button class="promo-btn" onclick="applyPromo()">Apply</button>
+      </div>
+      <button class="checkout-btn" onclick="goCheckout()">Proceed to Payment →</button>
+      <p class="secure-note">Secure checkout · SSL encrypted</p>
+    </div>
+  </div>`;
+}
+
+let appliedPromo = null;
+function applyPromo() {
+  const code = document.getElementById('promo-input').value.trim().toUpperCase();
+  if (code === 'SOLE10') { appliedPromo = code; showToast('Promo applied! 10% off'); render(); }
+  else { showToast('Invalid promo code', 'error'); }
+}
+function changeQty(id, size, qty) {
+  if (qty < 1) { removeFromCart(id, size); }
+  else { updateQty(id, size, qty); }
+  render();
+}
+function doRemove(id, size) { removeFromCart(id, size); render(); }
+function goCheckout() {
+  if (!getUser()) {
+    showToast('Please log in to continue');
+    setTimeout(() => window.location.href = 'login.html?redirect=payment.html', 1000);
+    return;
+  }
+  window.location.href = 'payment.html';
+}
+
+render();
+</script>
+</body>
+</html>
